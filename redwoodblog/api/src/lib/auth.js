@@ -19,14 +19,10 @@ import { db } from './db'
  * fields to the `select` object below once you've decided they are safe to be
  * seen if someone were to open the Web Inspector in their browser.
  */
-export const getCurrentUser = async (session) => {
-  if (!session || typeof session.id !== 'number') {
-    throw new Error('Invalid session')
-  }
-
+ export const getCurrentUser = async (session) => {
   return await db.user.findUnique({
     where: { id: session.id },
-    select: { id: true, email: true },
+    select: { id: true, email: true, roles: true },
   })
 }
 
